@@ -14,6 +14,14 @@
 		CD2359C522CE86320011A612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD2359C322CE86320011A612 /* LaunchScreen.storyboard */; };
 		CD2359D022CE86330011A612 /* NotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359CF22CE86330011A612 /* NotesTests.swift */; };
 		CD2359DB22CE86330011A612 /* NotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359DA22CE86330011A612 /* NotesUITests.swift */; };
+		CD2359EC22CE867B0011A612 /* NoteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359E922CE867A0011A612 /* NoteExtension.swift */; };
+		CD2359ED22CE867B0011A612 /* NoteExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359E922CE867A0011A612 /* NoteExtension.swift */; };
+		CD2359EE22CE867B0011A612 /* FileNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359EA22CE867A0011A612 /* FileNotebook.swift */; };
+		CD2359EF22CE867B0011A612 /* FileNotebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359EA22CE867A0011A612 /* FileNotebook.swift */; };
+		CD2359F022CE867B0011A612 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359EB22CE867A0011A612 /* Note.swift */; };
+		CD2359F122CE867B0011A612 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359EB22CE867A0011A612 /* Note.swift */; };
+		CD2359F422CE86EF0011A612 /* NotesExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359F222CE86EE0011A612 /* NotesExtensionTest.swift */; };
+		CD2359F522CE86EF0011A612 /* FileNotebookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2359F322CE86EE0011A612 /* FileNotebookTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +55,11 @@
 		CD2359D622CE86330011A612 /* NotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2359DA22CE86330011A612 /* NotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesUITests.swift; sourceTree = "<group>"; };
 		CD2359DC22CE86330011A612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD2359E922CE867A0011A612 /* NoteExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteExtension.swift; sourceTree = "<group>"; };
+		CD2359EA22CE867A0011A612 /* FileNotebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotebook.swift; sourceTree = "<group>"; };
+		CD2359EB22CE867A0011A612 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		CD2359F222CE86EE0011A612 /* NotesExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotesExtensionTest.swift; sourceTree = "<group>"; };
+		CD2359F322CE86EE0011A612 /* FileNotebookTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNotebookTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +110,7 @@
 		CD2359B922CE86310011A612 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				CD2359E822CE863B0011A612 /* Model */,
 				CD2359BA22CE86310011A612 /* AppDelegate.swift */,
 				CD2359BC22CE86310011A612 /* ViewController.swift */,
 				CD2359BE22CE86310011A612 /* Main.storyboard */,
@@ -112,6 +126,8 @@
 			children = (
 				CD2359CF22CE86330011A612 /* NotesTests.swift */,
 				CD2359D122CE86330011A612 /* Info.plist */,
+				CD2359F322CE86EE0011A612 /* FileNotebookTests.swift */,
+				CD2359F222CE86EE0011A612 /* NotesExtensionTest.swift */,
 			);
 			path = NotesTests;
 			sourceTree = "<group>";
@@ -123,6 +139,16 @@
 				CD2359DC22CE86330011A612 /* Info.plist */,
 			);
 			path = NotesUITests;
+			sourceTree = "<group>";
+		};
+		CD2359E822CE863B0011A612 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD2359EA22CE867A0011A612 /* FileNotebook.swift */,
+				CD2359EB22CE867A0011A612 /* Note.swift */,
+				CD2359E922CE867A0011A612 /* NoteExtension.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +282,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD2359F022CE867B0011A612 /* Note.swift in Sources */,
 				CD2359BD22CE86310011A612 /* ViewController.swift in Sources */,
+				CD2359EC22CE867B0011A612 /* NoteExtension.swift in Sources */,
+				CD2359EE22CE867B0011A612 /* FileNotebook.swift in Sources */,
 				CD2359BB22CE86310011A612 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,7 +294,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD2359F522CE86EF0011A612 /* FileNotebookTests.swift in Sources */,
+				CD2359F422CE86EF0011A612 /* NotesExtensionTest.swift in Sources */,
+				CD2359EF22CE867B0011A612 /* FileNotebook.swift in Sources */,
 				CD2359D022CE86330011A612 /* NotesTests.swift in Sources */,
+				CD2359ED22CE867B0011A612 /* NoteExtension.swift in Sources */,
+				CD2359F122CE867B0011A612 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
