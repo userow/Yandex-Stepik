@@ -13,6 +13,18 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        configure()
+    }
+    
+    func configure() {
+        title = "Notes"
+        
+        guard let suffix = Config.suffix, let color = Config.barTintColor else {
+            return
+        }
+        title?.append(suffix)
+        navigationController?.navigationBar.barTintColor = color
     }
 
 
