@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        let test = 10
+//        
+//        for num in 1..<100 {
+//            let num_sin = sin(Double(1/num))
+//            print(num_sin)
+//        }
+        
         return true
     }
 

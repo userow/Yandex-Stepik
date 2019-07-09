@@ -10,7 +10,7 @@ import UIKit
 
 class FileNotebook {
     private var filename: String = "Notes.dat"
-    public private(set) var notes: NSMutableDictionary = NSMutableDictionary()
+    public private(set) var notes: [String : Note] = [:]
     
     init (filename: String) {
         self.filename = filename
@@ -29,8 +29,20 @@ class FileNotebook {
             return
         }
         
-        let success = notes.write(to: url, atomically: true)
-        print("write: ", success);
+        var notesArr: [[String : String]] = []
+        
+        notes.forEach { (key, value) in
+            notesArr.append(value.json)
+        }
+        
+        let encoder = JSONEncoder()
+        if let jsonData = try? encoder.encode(notesArr) {
+            do {
+               try jsonData.write(to: url, options: [])
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     public func loadFromFile() {
@@ -38,14 +50,26 @@ class FileNotebook {
             return
         }
         
-        if let dictionary = NSMutableDictionary(contentsOf: url) {
-            print(dictionary)
+        do {
+            let data = try Data(contentsOf: url, options: [])
             
-            notes = dictionary
+            let notesarray = try JSONDecoder().decode([[String : String]].self, from: data)
+            
+            var notesFromFile : [String : Note] = [:]
+            
+            notesarray.forEach { value in
+                if let note = Note.parse(json: value) {
+                    notesFromFile[note.uid] = note
+                }
+            }
+            
+            self.notes = notesFromFile
+        } catch {
+            print(error.localizedDescription)
         }
     }
     
-    private func fileUrl()-> URL? {
+    private func fileUrl() -> URL? {
         let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
         
         if let documentPath = paths.first {

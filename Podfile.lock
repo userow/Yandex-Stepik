@@ -1,0 +1,22 @@
+PODS:
+  - AnyCodable-FlightSchool (0.2.1)
+  - CocoaLumberjack/Core (3.5.3)
+  - CocoaLumberjack/Swift (3.5.3):
+    - CocoaLumberjack/Core
+
+DEPENDENCIES:
+  - AnyCodable-FlightSchool
+  - CocoaLumberjack/Swift
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AnyCodable-FlightSchool
+    - CocoaLumberjack
+
+SPEC CHECKSUMS:
+  AnyCodable-FlightSchool: 6057e62d8423f8909c82965e49b2ea607519075d
+  CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
+
+PODFILE CHECKSUM: 2b2c441bfe30c33a869aa4405aa704867a7e9e90
+
+COCOAPODS: 1.7.2

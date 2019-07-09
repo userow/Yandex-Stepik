@@ -17,63 +17,27 @@ import UIKit
  Если важность «обычная», НЕ сохраняет её в json.
  UIColor, enum, Date сохраняет в json НЕ в виде сложных объектов. То есть допустимы любые скалярные типы (Int, Double, …), строки, массивы и словари.*/
 
-extension UIColor {
-    
-    //UIColor to HEX string
-    public func hexDescription() -> String {
-        guard self.cgColor.numberOfComponents == 4 else {
-            return "#FFFFFF"
-        }
-        let a = self.cgColor.components!.map { Int($0 * CGFloat(255)) }
-        let color = String.init(format: "#%02x%02x%02x", a[0], a[1], a[2])
-        
-        return color
-    }
-    
-    
-    convenience init(r: UInt8, g: UInt8, b: UInt8, alpha: CGFloat = 1.0) {
-        let divider: CGFloat = 255.0
-        self.init(red: CGFloat(r)/divider, green: CGFloat(g)/divider, blue: CGFloat(b)/divider, alpha: alpha)
-    }
-    
-    private convenience init(rgbWithoutValidation value: Int32, alpha: CGFloat = 1.0) {
-        self.init(
-            r: UInt8((value & 0xFF0000) >> 16),
-            g: UInt8((value & 0x00FF00) >> 8),
-            b: UInt8(value & 0x0000FF),
-            alpha: alpha
-        )
-    }
-    
-    convenience init?(rgb: Int32, alpha: CGFloat = 1.0) {
-        if rgb > 0xFFFFFF || rgb < 0 { return nil }
-        self.init(rgbWithoutValidation: rgb, alpha: alpha)
-    }
-    
-    convenience init?(hex: String, alpha: CGFloat = 1.0) {
-        var charSet = CharacterSet.whitespacesAndNewlines
-        charSet.insert("#")
-        let _hex = hex.trimmingCharacters(in: charSet)
-        guard _hex.range(of: "^[0-9A-Fa-f]{6}$", options: .regularExpression) != nil else { return nil }
-        var rgb: UInt32 = 0
-        Scanner(string: _hex).scanHexInt32(&rgb)
-        self.init(rgbWithoutValidation: Int32(rgb), alpha: alpha)
-    }
-}
 
 extension Note {
-    static func parse(json: [String : Any]) -> Note? {
+    
+    private static var dateFmt: DateFormatter {
+        let fmt = DateFormatter()
+        fmt.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSSSS"
+        return fmt
+    }
+    
+    static func parse(json: [String : String]) -> Note? {
         // проверяю на обязательные параметры
         //UID, title, content у заметки всегда есть
-        guard let uid = json["uid"] as? String,
-            let title = json["title"] as? String,
-            let content = json["content"] as? String
+        guard let uid = json["uid"],
+            let title = json["title"],
+            let content = json["content"]
             else {
             return nil
         }
         
         var importance = Importance.normal //в JSON не передаётся .normal, стало быть он идёт по умолчанию
-        if let impString = json["importance"] as? String,
+        if let impString = json["importance"],
             let imp = Importance(rawValue: impString) {
             importance = imp
         }
@@ -81,16 +45,17 @@ extension Note {
         //парс цвета
         var color: UIColor = .white //в JSON не передаётся дефолтный цвет, стало быть он идёт по умолчанию
         
-        if let colorString = json["color"] as? String,
+        if let colorString = json["color"],
             let col = UIColor(hex: colorString) {
             color = col
         }
         
         //парс destrDate
         var selfDestrDate: Date?
-            
-        if let date = json["selfDestructionDate"] as? TimeInterval {
-            selfDestrDate = Date(timeIntervalSince1970: date)
+        
+        if let dateStr = json["selfDestructionDate"],
+            let date = dateFmt.date(from: dateStr) {
+            selfDestrDate = date
         }
         
         let note = Note(uid: uid,
@@ -103,8 +68,8 @@ extension Note {
         return note
     }
     
-    var json: [String: Any] {
-        var json: [String: Any] = [:]
+    var json: [String: String] {
+        var json: [String: String] = [:]
         
         json["uid"] = uid
         json["title"] = title
@@ -119,7 +84,7 @@ extension Note {
         }
         
         if let destrDate = selfDestructionDate {
-            json["selfDestructionDate"] = destrDate.timeIntervalSince1970
+            json["selfDestructionDate"] = Note.dateFmt.string(from: destrDate)
         }
         
         return json
